@@ -9,7 +9,7 @@ int main() {
     void* memory;
     char* p;
 
-    shmid = shmget((key_t)123456789, 6, 0666);
+    shmid = shmget((key_t)123456789, 6, IPC_CREAT|0666);
     if (shmid < 0) {
         printf("Shared memeory allocation unsuccessful.\n");
         shmid = shmget((key_t)123456789, 6, 0666);
@@ -26,8 +26,8 @@ int main() {
     // Cleaning the memory
     memset(p, '\0', 6);
 
-    // Writing into the memory
-    memcpy(p, "Hello", 6);
+    // Writing into the memory   
+    memcpy(p, "World", 6);
 
     retval = shmdt(p);
     if (retval < 0) {
